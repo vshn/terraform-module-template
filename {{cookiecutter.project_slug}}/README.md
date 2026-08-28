@@ -6,7 +6,7 @@
 
 ```hcl
 module "example" {
-  source = "github.com/<your-org>/{{ cookiecutter.project_slug }}"
+  source = "github.com/vshn/{{ cookiecutter.project_slug }}"
 }
 ```
 

@@ -6,7 +6,7 @@ module repository with the shared boilerplate we want kept in sync everywhere:
 ## Create a new module
 
     pip install cruft
-    cruft create https://github.com/<your-org>/terraform-module-template
+    cruft create https://github.com/vshn/terraform-module-template
 
 ## Change the template
 

@@ -1,0 +1,7 @@
+{
+  "project_slug": "terraform-example",
+  "description": "A Terraform module",
+  "_copy_without_render": [
+    ".github/workflows/*"
+  ]
+}

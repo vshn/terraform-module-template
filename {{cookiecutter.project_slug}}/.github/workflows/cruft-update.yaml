@@ -40,7 +40,7 @@ jobs:
 
       - name: Open pull request
         if: steps.check.outputs.outdated == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: chore/cruft-update
           title: "chore: sync with module template"

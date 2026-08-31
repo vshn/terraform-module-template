@@ -4,10 +4,9 @@
   "addLabels": ["vega-renovate-ops"],
   "reviewers": ["team:vega"],
   "packageRules": [
-    {
-      "matchUpdateTypes": ["patch"],
-      "automerge": true
-    }
+    { "matchUpdateTypes": ["patch"], "automerge": true, "addLabels": ["bump:patch"] },
+    { "matchUpdateTypes": ["minor"], "addLabels": ["bump:minor"] },
+    { "matchUpdateTypes": ["major"], "addLabels": ["bump:major"] }
   ],
   "platformAutomerge": true
 }

@@ -3,5 +3,6 @@
   "description": "A Terraform module",
   "_copy_without_render": [
     ".github/workflows/*"
-  ]
+  ],
+  "skip": ["README.md"]
 }

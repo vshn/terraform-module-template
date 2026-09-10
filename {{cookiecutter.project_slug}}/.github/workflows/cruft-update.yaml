@@ -42,11 +42,9 @@ jobs:
         if: steps.check.outputs.outdated == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.CRUFT_PR_TOKEN }}
           branch: chore/cruft-update
           title: "chore: sync with module template"
           commit-message: "chore: sync with module template"
-          team-reviewers: vega
           labels: vega-renovate-ops
           body: |
             Automated sync from the Terraform module template.

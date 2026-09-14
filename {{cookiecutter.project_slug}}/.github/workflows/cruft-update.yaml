@@ -48,21 +48,29 @@ jobs:
           git switch -C "$BRANCH"
           cruft update --skip-apply-ask
 
-          if git diff --quiet && git diff --cached --quiet; then
-            echo "No changes after cruft update; nothing to do."
+          git add -A
+          if git diff --cached --quiet; then
+            echo "cruft update produced no changes at all; nothing to do."
+            exit 0
+          fi
+          git commit -m "chore: sync with module template"
+
+          BASE="$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)"
+
+          # Skip PR if the only change is the cruft pin (.cruft.json)
+          if [ -z "$(git diff --name-only "origin/$BASE"...HEAD -- . ':(exclude).cruft.json')" ]; then
+            echo "Only .cruft.json changed — no meaningful sync, skipping PR."
             exit 0
           fi
 
-          git add -A
-          git commit -m "chore: sync with module template"
           git push --force-with-lease origin "$BRANCH"
 
-          BASE="$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)"
-          if ! gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
+          # Only skip creation if an OPEN PR already exists for this branch
+          if ! gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -qx OPEN; then
             gh pr create \
               --base "$BASE" \
               --head "$BRANCH" \
-              --title "sync with module template" \
+              --title "chore: sync with module template" \
               --label vega-renovate-ops \
               --body "Automated sync from the Terraform module template. Resolve any \`.rej\` conflict files before merging."
           fi
